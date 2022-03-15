@@ -25,10 +25,10 @@ Each TODO is composed of the following fields:
 2.	User ID
 3.	Task Title
 4.	Task Description
-5.	Task State
-a.	TODO
-b.	In Progress
-c.	Done
+5.	Task State  
+a.	TODO  
+b.	In Progress  
+c.	Done  
 6.	Task Due Date
 
 The TODO server app should provide REST API endpoints to handle the following operations.
@@ -36,7 +36,7 @@ The TODO server app should provide REST API endpoints to handle the following op
 1.	Add a TODO. 
 2.	Delete a TODO.
 3.	Update a TODO.
-4.	List all TODOs.
+4.	List all TODOs.  
 a.	Filter TODOs by one or more fields.
 
 For the list operation, add the ability to sort and filter by the TODO fields.

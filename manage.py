@@ -18,5 +18,14 @@ def main():
     execute_from_command_line(sys.argv)
 
 
+
 if __name__ == '__main__':
     main()
+
+
+from django.test import TestCase
+
+class MyTestCase(TestCase):
+
+    def test_example(self):
+        assert 1 == 1

@@ -2,18 +2,23 @@ version: "3.9"
    
 services:
   db:
-    image: postgres
+    image: postgres:12.2
+    ports:
+      - 5432:5432
     volumes:
-      - ./data/db:/var/lib/postgresql/data
+      - ./data/db:/var/lib/postgresql/12/main
     environment:
       - POSTGRES_NAME=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+    container_name: db
+    networks:
+      - djangonetwork
   app:
     build: .
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
-      - .:/code
+      - static:/static
     ports:
       - "8000:8000"
     environment:
@@ -22,3 +27,24 @@ services:
       - POSTGRES_PASSWORD=postgres
     depends_on:
       - db
+    links:
+      - db:db
+    networks:
+      - djangonetwork
+  nginx:
+    build: ./nginx
+    volumes:
+    - static:/static
+    ports:
+    - "80:80"
+    depends_on:
+    - app
+    networks:
+    - djangonetwork
+
+volumes:
+  static:
+
+networks:
+  djangonetwork:
+    driver: bridge

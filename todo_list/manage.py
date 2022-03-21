@@ -6,7 +6,7 @@ import sys
 
 def main():
     """Run administrative tasks."""
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'djangoapp.settings')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'todo_list.settings')
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
@@ -18,5 +18,14 @@ def main():
     execute_from_command_line(sys.argv)
 
 
+
 if __name__ == '__main__':
     main()
+
+
+from django.test import TestCase
+
+class MyTestCase(TestCase):
+
+    def test_example(self):
+        assert 1 == 1

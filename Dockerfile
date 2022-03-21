@@ -6,11 +6,16 @@ ENV PYTHONUNBUFFERED=1
 # Copy requirements file into root path in container
 COPY requirements.txt .
 # Run pip install requirements
-RUN pip install -r requirements.txt
+RUN pip3 install -r requirements.txt
 
-#Copy contents of /djangoapp to a new directory in the container as /app
-COPY ./djangoapp /app
+#Copy contents of /todo_list to a new directory in the container as /app
+COPY ./todo_list /app
+
+COPY ./base /app/base
 
 # Declare working directory
 WORKDIR /app
+
+COPY ./entrypoint.sh /
+ENTRYPOINT ["sh", "/entrypoint.sh"]
 

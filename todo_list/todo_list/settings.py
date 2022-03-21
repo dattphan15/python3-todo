@@ -12,6 +12,13 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
+import sys
+
+# add your project directory to the sys.path 
+project_home = u'/home/kevin/django-docker-compose/todo_list'
+if project_home not in sys.path:
+    sys.path.append(project_home)
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -42,6 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'base.apps.BaseConfig',
+    'todo_list.settings',
 ]
 
 MIDDLEWARE = [

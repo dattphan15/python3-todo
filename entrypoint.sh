@@ -1,4 +1,5 @@
 # Run migrations with docker-compose up
+python manage.py makemigrations --no-input
 python manage.py migrate --no-input
 
 #  django by default overwrites your modified files on collectstatic command,

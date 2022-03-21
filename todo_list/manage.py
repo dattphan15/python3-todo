@@ -3,6 +3,10 @@
 import os
 import sys
 
+# add your project directory to the sys.path 
+project_home = u'/home/kevin/django-docker-compose/todo_list'
+if project_home not in sys.path:
+    sys.path.append(project_home)
 
 def main():
     """Run administrative tasks."""

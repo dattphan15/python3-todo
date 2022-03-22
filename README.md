@@ -38,7 +38,7 @@ Note: Postgres is configured in this docker container to run on port 5432, so ma
 
 ___
 
-# Project
+# Project Objectives
 ___
 Overview  
 You have three primary tasks:

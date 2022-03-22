@@ -32,9 +32,22 @@ Note: Postgres is configured in this docker container to run on port 5432, so ma
 ### To Do List
 `http://0.0.0.0:8000/tasks`.
 
+
+![Registration](https://github.com/dattphan15/python3-todo/blob/master/docs/media/3.registration.PNG)
+
+
+![Login](https://github.com/dattphan15/python3-todo/blob/master/docs/media/4.login.PNG)
+
+
+![Task List](https://github.com/dattphan15/python3-todo/blob/master/docs/media/5.todo-tasks.PNG)
+
+
 ### Admin
 `http://0.0.0.0:8000/admin`
 
+![Django Admin](https://github.com/dattphan15/python3-todo/blob/master/docs/media/1.django-admin.PNG)
+
+![Django Rest Auth](https://github.com/dattphan15/python3-todo/blob/master/docs/media/2.django-auth.PNG)
 
 ___
 

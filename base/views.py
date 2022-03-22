@@ -3,6 +3,7 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
 from django.urls import reverse_lazy
+from django.views.decorators.csrf import csrf_exempt
 
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -16,6 +17,7 @@ from django.db import transaction
 
 from .models import Task
 from .forms import PositionForm
+from django.contrib.auth import get_user_model
 
 
 class CustomLoginView(LoginView):
@@ -26,7 +28,8 @@ class CustomLoginView(LoginView):
     def get_success_url(self):
         return reverse_lazy('tasks')
 
-
+# temporarily using exempt
+# @csrf_exempt
 class RegisterPage(FormView):
     template_name = 'base/register.html'
     form_class = UserCreationForm
@@ -52,7 +55,7 @@ class TaskList(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['tasks'] = context['tasks'].filter(user=self.request.user)
-        context['count'] = context['tasks'].filter(status="TODO").count()
+        context['count'] = context['tasks'].filter(status__in=["TODO","INPROGRESS","DONE"]).count()
 
         search_input = self.request.GET.get('search-area') or ''
         if search_input:
@@ -60,7 +63,11 @@ class TaskList(LoginRequiredMixin, ListView):
                 title__contains=search_input)
 
         context['search_input'] = search_input
-
+        search_select = self.request.GET.get('status') or ''
+        if search_select:
+            context['count'] = context['tasks'].filter(status=search_select).count()
+            context['tasks']=context['tasks'].filter(status=search_select)
+        context['search_select']=search_select
         return context
 
 

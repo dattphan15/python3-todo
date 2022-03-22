@@ -18,6 +18,18 @@
         <input type='text' name='search-area' placeholder="Search your task" value="{{search_input}}">
         <input class="button" type="submit" value='Search'>
     </form>
+    <div class="filterrecord">
+
+        <form method="GET" style="display: flex;">
+            <select name="status" id="id_status">
+                <option value="" >Filter Todo</option>
+                <option value="TODO">Todo</option>
+                <option value="INPROGRESS">In Progress</option>
+                <option value="DONE">Done</option>
+              </select>
+              <input class="button" type="submit" value='Filter'>
+        </form>
+    </div>
     {% if tasks|length > 0 %}
     <a id="add-link" href="{% url 'task-create' %}">&#x2b;</a>
     {% endif %}

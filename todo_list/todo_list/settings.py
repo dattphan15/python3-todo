@@ -14,11 +14,6 @@ from pathlib import Path
 import os
 import sys
 
-# add your project directory to the sys.path 
-project_home = u'/home/kevin/django-docker-compose/todo_list'
-if project_home not in sys.path:
-    sys.path.append(project_home)
-
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -42,15 +37,35 @@ ALLOWED_HOSTS = ['0.0.0.0', 'django']
 # Application definition
 
 INSTALLED_APPS = [
+
+    # My Apps
+    # 'base',
+    'account',
+    'base.apps.BaseConfig',
+
+    # Django Apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'base.apps.BaseConfig',
     'todo_list.settings',
+
+    # Third-Party Apps
+    'rest_framework',
+    'rest_framework.authtoken',
 ]
+
+REST_FRAMEWORK = {
+    
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ]
+}
+
+AUTH_USER_MODEL = 'account.Account'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

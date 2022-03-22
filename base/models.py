@@ -1,11 +1,10 @@
 from django.db import models
-from django.contrib.auth.models import User
+from account.models import Account
 # Create your models here.
-
 
 class Task(models.Model):
     user = models.ForeignKey(
-        User, on_delete=models.CASCADE, null=True, blank=True)
+        Account, on_delete=models.CASCADE, null=True, blank=True)
     title = models.CharField(max_length=200)
     description = models.TextField(null=True, blank=True)
     STATUS_CHOICES = [

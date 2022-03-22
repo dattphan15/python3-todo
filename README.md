@@ -1,4 +1,44 @@
-# Project
+# Django Docker - Python3-todo
+## Setup
+
+The first thing to do is to clone the repository:
+
+```sh
+$ git clone git@github.com:dattphan15/python3-todo.git
+$ cd python3-todo
+```
+
+In the root folder `python3-todo/` , launch and build the docker containers:
+
+```sh
+$ docker-compose up --build
+```
+
+Upon success, the above command should launch 3 containers (nginx, app, postgres), and automatically make and run migrations.
+
+To view running containers:
+```sh
+$ docker ps
+```
+
+Shut down docker and remove all volumes attached:
+```sh
+$ docker-compose down -v --rmi all
+```
+
+Note: Postgres is configured in this docker container to run on port 5432, so make sure that port isn't occupied by anything else. If another instance of postgres is running, kill the process and then proceed to launch docker.
+
+
+### To Do List
+`http://0.0.0.0:8000/tasks`.
+
+### Admin
+`http://0.0.0.0:8000/admin`
+
+
+___
+
+# Project Objectives
 ___
 Overview  
 You have three primary tasks:
@@ -47,9 +87,9 @@ The Admin Dashboard should provide an API key for each newly created user accoun
 Test Script
 Create a Python script which tests TODO app’s REST API as a normal user. The script should get the API key via an environment variable or a command-line parameter.
 
-Note, this is different from a Django unit test as its purpose is to test the entire deployment whose entry point is NGINX.
-Deployment
-TODO Server App
+Note, this is different from a Django unit test as its purpose is to test the entire deployment whose entry point is NGINX.  
+Deployment  
+TODO Server App  
 User docker-compose to deploy the TODO server app as a collection of Docker containers:
 
 1.	Django/Gunicorn

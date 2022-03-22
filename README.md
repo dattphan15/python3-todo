@@ -20,7 +20,7 @@ Upon success, the above command should launch 3 containers (nginx, app, postgres
 
 Next, you will need to login to the docker container and create a superuser to access the Django Admin `http://0.0.0.0:8000/admin` (steps below).
 
-1. Find the docker container ID:
+1. Find the docker container ID for app:
 ```sh
 $ docker ps
 

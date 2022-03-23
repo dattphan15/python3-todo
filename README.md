@@ -8,6 +8,8 @@ $ git clone git@github.com:dattphan15/python3-todo.git
 $ cd python3-todo
 ```
 
+Note: Postgres is configured in this docker container to run on port 5432, so make sure that port isn't occupied by anything else. If another instance of postgres is running, kill the process and then proceed to launch docker.
+
 In the root folder `python3-todo/` , launch and build the docker containers:
 
 ```sh
@@ -16,18 +18,40 @@ $ docker-compose up --build
 
 Upon success, the above command should launch 3 containers (nginx, app, postgres), and automatically make and run migrations.
 
-To view running containers:
+Next, you will need to login to the docker container and create a superuser to access the Django Admin `http://0.0.0.0:8000/admin` (steps below).
+
+1. Find the docker container ID for app:
 ```sh
 $ docker ps
+
+CONTAINER ID   IMAGE                         COMMAND                  CREATED          STATUS          PORTS                                       NAMES
+3e9974669ee5   django-docker-compose_nginx   "/docker-entrypoint.…"   12 seconds ago   Up 11 seconds   0.0.0.0:80->80/tcp, :::80->80/tcp           django-docker-compose_nginx_1
+58064eafc2a8   django-docker-compose_app     "sh /entrypoint.sh p…"   12 seconds ago   Up 11 seconds   0.0.0.0:8000->8000/tcp, :::8000->8000/tcp   django-docker-compose_app_1
+b601f871b587   postgres:12.2                 "docker-entrypoint.s…"   12 seconds ago   Up 12 seconds   0.0.0.0:5432->5432/tcp, :::5432->5432/tcp   db
 ```
 
-Shut down docker and remove all volumes attached:
+2. Replace the [CONTAINERID] with the CONTAINER ID above.
+```sh
+$ docker exec -t -i [CONTAINERID] bash
+//
+$ docker exec -t -i 58064eafc2a8 bash
+```
+
+3. Create superuser, and follow prompts to provide your email, username and password.
+```sh
+root@58064eafc2a8:/app# python manage.py createsuperuser
+```
+
+4. Now you can access the Django Admin `http://0.0.0.0:8000/admin` with the credentials you just created.
+
+5. To visit the main todo app, `http://0.0.0.0:8000/tasks`.
+
+
+To shut down docker and remove all volumes attached:
 ```sh
 $ docker-compose down -v --rmi all
 ```
-
-Note: Postgres is configured in this docker container to run on port 5432, so make sure that port isn't occupied by anything else. If another instance of postgres is running, kill the process and then proceed to launch docker.
-
+___
 
 ### To Do List
 `http://0.0.0.0:8000/tasks`.

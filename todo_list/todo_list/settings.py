@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     # My Apps
     # 'base',
     'account',
+    'api',
     'base.apps.BaseConfig',
 
     # Django Apps
@@ -65,7 +66,7 @@ REST_FRAMEWORK = {
     ]
 }
 
-AUTH_USER_MODEL = 'account.Account'
+AUTH_USER_MODEL = 'api.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

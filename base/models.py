@@ -1,10 +1,10 @@
 from django.db import models
-from account.models import Account
+from api.models import User
 # Create your models here.
 
 class Task(models.Model):
     user = models.ForeignKey(
-        Account, on_delete=models.CASCADE, null=True, blank=True)
+        User, on_delete=models.CASCADE, null=True, blank=True)
     title = models.CharField(max_length=200)
     description = models.TextField(null=True, blank=True)
     STATUS_CHOICES = [

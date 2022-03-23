@@ -7,7 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.forms import UserCreationForm
+# from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 
 # Imports for Reordering Feature
@@ -16,8 +16,9 @@ from django.shortcuts import redirect
 from django.db import transaction
 
 from .models import Task
-from .forms import PositionForm
+from .forms import PositionForm, UserForm
 from django.contrib.auth import get_user_model
+from api.models import User
 
 
 class CustomLoginView(LoginView):
@@ -28,11 +29,10 @@ class CustomLoginView(LoginView):
     def get_success_url(self):
         return reverse_lazy('tasks')
 
-# temporarily using exempt
-# @csrf_exempt
+
 class RegisterPage(FormView):
     template_name = 'base/register.html'
-    form_class = UserCreationForm
+    form_class = UserForm
     redirect_authenticated_user = True
     success_url = reverse_lazy('tasks')
 

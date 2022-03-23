@@ -13,6 +13,8 @@ COPY ./todo_list /app
 
 COPY ./account /app/account
 
+COPY ./api /app/api
+
 COPY ./base /app/base
 
 # Declare working directory

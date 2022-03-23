@@ -11,7 +11,16 @@ from django.contrib.auth.views import LogoutView
 
 # app_name = "account"
 
+
+from django.conf.urls import url
+from django.contrib import admin
+
+
 urlpatterns = [
+    # url(r'^admin/', admin.site.urls),
+    url(r'^api/', include('api.urls')),
+
+
     path('login/', CustomLoginView.as_view(), name='login'),
     path('accounts/login/', CustomLoginView.as_view(), name='accounts-login'),
     path('logout/', LogoutView.as_view(next_page='login'), name='logout'),

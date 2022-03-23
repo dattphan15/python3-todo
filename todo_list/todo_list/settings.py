@@ -40,7 +40,6 @@ INSTALLED_APPS = [
 
     # My Apps
     # 'base',
-    'account',
     'api',
     'base.apps.BaseConfig',
 

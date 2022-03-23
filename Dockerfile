@@ -11,8 +11,6 @@ RUN pip3 install -r requirements.txt
 #Copy contents of /todo_list to a new directory in the container as /app
 COPY ./todo_list /app
 
-COPY ./account /app/account
-
 COPY ./api /app/api
 
 COPY ./base /app/base

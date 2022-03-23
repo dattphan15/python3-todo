@@ -8,7 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import login
+from django.contrib.auth import login, authenticate
 
 # Imports for Reordering Feature
 from django.views import View
@@ -29,23 +29,38 @@ class CustomLoginView(LoginView):
         return reverse_lazy('tasks')
 
 # temporarily using exempt
-# @csrf_exempt
-class RegisterPage(FormView):
-    template_name = 'base/register.html'
-    form_class = UserCreationForm
-    redirect_authenticated_user = True
-    success_url = reverse_lazy('tasks')
+# # @csrf_exempt
+# class RegisterPage(FormView):
+#     template_name = 'base/register.html'
+#     form_class = UserCreationForm
+#     redirect_authenticated_user = True
+#     success_url = reverse_lazy('tasks')
 
-    def form_valid(self, form):
-        user = form.save()
-        if user is not None:
-            login(self.request, user)
-        return super(RegisterPage, self).form_valid(form)
+#     def form_valid(self, form):
+#         user = form.save()
+#         if user is not None:
+#             login(self.request, user)
+#         return super(RegisterPage, self).form_valid(form)
 
-    def get(self, *args, **kwargs):
-        if self.request.user.is_authenticated:
-            return redirect('tasks')
-        return super(RegisterPage, self).get(*args, **kwargs)
+#     def get(self, *args, **kwargs):
+#         if self.request.user.is_authenticated:
+#             return redirect('tasks')
+#         return super(RegisterPage, self).get(*args, **kwargs)
+
+
+def signup(request):
+        if request.method == 'POST':
+            form = UserCreationForm(request.POST)
+            if form.is_valid():
+                form.save()
+                username = None
+                raw_password = form.cleaned_data.get('password1')
+                user = authenticate(password=raw_password)
+                login(request, user)
+                return redirect('home')
+        else:
+            form = UserCreationForm()
+        return render(request, 'base/register.html', {'form': form})
 
 
 class TaskList(LoginRequiredMixin, ListView):

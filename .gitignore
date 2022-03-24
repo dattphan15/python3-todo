@@ -3,6 +3,7 @@
 
 ## virtual env
 /venvpy3
+/py3env
 venv
 
 .env

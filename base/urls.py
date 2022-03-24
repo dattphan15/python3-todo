@@ -8,13 +8,12 @@ from django.contrib.auth.views import LogoutView
 # )
 
 # from rest_framework.authtoken.views import obtain_auth_token
-
 # app_name = "account"
 
 
 from django.conf.urls import url
 from django.contrib import admin
-
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     # url(r'^admin/', admin.site.urls),
@@ -36,3 +35,5 @@ urlpatterns = [
     # path('api/account/login', obtain_auth_token , name="api-login"),
     # path('api/account/register', registration_view, name="api-register"),
 ]
+
+urlpatterns += staticfiles_urlpatterns()

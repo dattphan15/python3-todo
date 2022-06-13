@@ -73,7 +73,7 @@ REST_FRAMEWORK = {
 
 REST_USE_JWT = True
 
-AUTH_USER_MODEL = 'api.User'
+AUTH_USER_MODEL = 'api.MyUser'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -90,7 +90,10 @@ ROOT_URLCONF = 'todo_list.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            # absolute path to template files
+            'base/templates/base/',
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

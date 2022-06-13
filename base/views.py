@@ -4,6 +4,7 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
 from django.urls import reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponse
 
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -16,9 +17,10 @@ from django.shortcuts import redirect
 from django.db import transaction
 
 from .models import Task
-from .forms import PositionForm, UserForm
-from django.contrib.auth import get_user_model
-from api.models import User
+from .forms import RegisterForm, UserForm, CustomUserCreationForm, PositionForm
+
+# from django.contrib.auth import get_user_model
+# from api.models import User
 
 
 class CustomLoginView(LoginView):
@@ -46,6 +48,27 @@ class RegisterPage(FormView):
         if self.request.user.is_authenticated:
             return redirect('tasks')
         return super(RegisterPage, self).get(*args, **kwargs)
+
+
+
+def register_user(request):
+    if request.method == 'POST':
+            register = RegisterForm(request.POST, prefix='register')
+            # usrprofile = ProfileForm(request.POST, prefix='profile')
+            if register.is_valid():
+                user = register.save()
+                # usrprof = usrprofile.save(commit=False)
+                # usrprof.user = user
+                # usrprof.set_token()
+                # usrprof.subscribed = '1'
+                # usrprof.save()
+                return HttpResponse('congrats')
+            else:
+                return HttpResponse('errors')
+    else:
+        userform = RegisterForm(prefix='register')
+        # userprofileform = ProfileForm(prefix='profile')
+        return render(request, 'register.html', {'userform': userform})
 
 
 class TaskList(LoginRequiredMixin, ListView):
@@ -101,6 +124,7 @@ class DeleteView(LoginRequiredMixin, DeleteView):
         owner = self.request.user
         return self.model.objects.filter(user=owner)
 
+
 class TaskReorder(View):
     def post(self, request):
         form = PositionForm(request.POST)
@@ -112,3 +136,8 @@ class TaskReorder(View):
                 self.request.user.set_task_order(positionList)
 
         return redirect(reverse_lazy('tasks'))
+
+class SignUpView(CreateView):
+    form_class = CustomUserCreationForm
+    success_url = reverse_lazy("login")
+    template_name = "register.html"

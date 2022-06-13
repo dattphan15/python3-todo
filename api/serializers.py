@@ -1,29 +1,29 @@
 from rest_framework import serializers
-from api.models import User
+from api.models import MyUser
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
     
     class Meta:
-        model = User
+        model = MyUser
         fields = ('title', 'dob', 'address', 'country', 'city', 'zip', 'photo')
 
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+class MyUserSerializer(serializers.HyperlinkedModelSerializer):
     profile = UserProfileSerializer(required=True)
 
     class Meta:
-        model = User
+        model = MyUser
         fields = ('url', 'email', 'password', 'profile')
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
         profile_data = validated_data.pop('profile')
         password = validated_data.pop('password')
-        user = User(**validated_data)
+        user = MyUser(**validated_data)
         user.set_password(password)
         user.save()
-        User.objects.create(user=user, **profile_data)
+        MyUser.objects.create(user=user, **profile_data)
         return user
 
     def update(self, instance, validated_data):
